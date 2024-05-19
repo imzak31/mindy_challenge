@@ -5,7 +5,7 @@ interface Endpoints {
 }
 
 const endpoints: Endpoints = {
-    api_base: `${BASE_URL}/api`,
+    all_indicators: 'api',
 };
 
 const apiRoutes: Endpoints = Object.keys(endpoints).reduce((acc, key) => {
