@@ -1,3 +1,5 @@
+// src/presenters/indicatorsPresenter.ts
+
 import { indicatorDateLimits } from '../utils/indicatorDateLimits';
 
 interface Indicator {
@@ -17,7 +19,7 @@ interface Series {
     valor: number;
 }
 
-interface IndicatorSeries {
+export interface IndicatorSeries {
     codigo: string;
     nombre: string;
     unidad_medida: string;

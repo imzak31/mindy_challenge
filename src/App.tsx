@@ -1,26 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import IndicatorSelector from "./components/indicatorsSelector/indicatorsSelector";
+import FrequencySelector from "./components/indicatorFrequencySelector/indicatorsFrequencySelector";
+import CustomDatePicker from "./components/indicatorDatePicker/indicatorsDatePicker";
+import Graph from "./components/indicatorsGraphicBuilder/indicatorsGraphicBuilder";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [selectedIndicator, setSelectedIndicator] = useState<string | null>(null);
+    const [selectedFrequency, setSelectedFrequency] = useState<string | null>(null);
+    const [selectedDate, setSelectedDate] = useState<string | null>(null);
+
+    const handleIndicatorSelect = (indicatorCode: string) => {
+        setSelectedIndicator(indicatorCode);
+    };
+
+    const handleFrequencySelect = (frequency: string) => {
+        setSelectedFrequency(frequency);
+    };
+
+    const handleDateSelect = (date: string) => {
+        setSelectedDate(date);
+    };
+
+    return (
+        <div className="App">
+            <main className="App-main">
+                <div className="selectors-container">
+                    <IndicatorSelector onSelect={handleIndicatorSelect} />
+                    <FrequencySelector onSelect={handleFrequencySelect} />
+                    {selectedIndicator && selectedFrequency && (
+                        <CustomDatePicker
+                            indicatorCode={selectedIndicator}
+                            frequency={selectedFrequency}
+                            onDateSelect={handleDateSelect}
+                        />
+                    )}
+                </div>
+                {selectedIndicator && selectedFrequency && selectedDate && (
+                    <Graph indicatorCode={selectedIndicator} frequency={selectedFrequency} date={selectedDate} />
+                )}
+            </main>
+        </div>
+    );
 }
 
 export default App;
